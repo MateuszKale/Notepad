@@ -5,6 +5,7 @@
 namespace App;
 //import debug function dump()
 require_once("src/Utils/debug.php");
+require_once("src/view.php");
 
 
 $action = $_GET['action'] ?? null;
@@ -17,13 +18,12 @@ $action = $_GET['action'] ?? null;
 // }
 
 
-//View logic
+$view = new View();
+$view->render($action);
 
-if ($action === 'create'){
-    include_once("templates/pages/create.php");
-}else{
-    include_once("templates/pages/list.php");
-}
+
+
+
 
 
 
