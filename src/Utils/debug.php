@@ -5,8 +5,8 @@ declare(strict_types=1);
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 
-
-
+//W folderze src przetrzymywac pliki zwiazane z naszymi klasami funcjami
+//Debbuging function
 
 function dump($data)
 {
