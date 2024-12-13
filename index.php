@@ -1,14 +1,15 @@
 <?php
 
-//declare(strict_types=1);
+declare(strict_types=1);
 
 namespace App;
 //import debug function dump()
 require_once("src/Utils/debug.php");
 require_once("src/view.php");
 
+const DEFAULT_ACTION = 'list';
 
-$action = $_GET['action'] ?? null;
+$action = $_GET['action'] ?? DEFAULT_ACTION;
 
 // one line if
 // if (!empty($_GET['action'])){
@@ -17,9 +18,17 @@ $action = $_GET['action'] ?? null;
 //     $action == null;
 // }
 
-
 $view = new View();
-$view->render($action);
+
+$viewParams = [];
+if ($action ==='create'){
+    $viewParams['resultCreate'] = "udało się";
+}else{
+    $viewParams['resultList'] = "wyświetlamy notatki";
+}
+
+
+$view->render($action,$viewParams);
 
 
 

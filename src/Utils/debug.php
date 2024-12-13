@@ -7,6 +7,7 @@ ini_set('display_errors',1);
 
 
 //Debbuging function
+// To test new features
 
 function dump($data)
 {
