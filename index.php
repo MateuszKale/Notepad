@@ -21,16 +21,16 @@ $action = $_GET['action'] ?? DEFAULT_ACTION;
 $view = new View();
 
 $viewParams = [];
-if ($action ==='create'){
-    $page = 'create';
-    $viewParams['resultCreate'] = "udało się";
-}else{
-    $page ==='list';
-    $viewParams['resultList'] = "wyświetlamy notatki";
+if ($action === 'create') {
+  $page = 'create';
+  $viewParams['resultCrate'] = "udało się";
+} else {
+  $page = 'list';
+  $viewParams['resultList'] = "wyświetlamy notatki";
 }
 
 
-$view->render($page,$viewParams);
+$view->render($page, $viewParams);
 
 
 
