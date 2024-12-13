@@ -1,10 +1,9 @@
-
 <div>
-    <h3> nowa notatka </h3>
-    <div>
-        Tutaj bedzie formularz dla nowej notatki :
+  <h3> nowa notatka </h3>
+  <div>
+    Tutaj będzie formularz dla nowej notatki:
 
-        <b><?php echo $params['resultCreate']; ?> </b>
-    </div>
+    <b><?php echo $params['resultCrate'] ?></b>
+  </div>
 </div>
     
