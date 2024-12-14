@@ -23,18 +23,19 @@ $view = new View();
 $viewParams = [];
 if ($action === 'create') {
   $page = 'create';
+  $created = false;
+
 
   // Checking that our global variable takes any values if they have any values save then to variable
   if (!empty($_POST)){
-    
+    $created = true;
     $viewParams = [
       'title'=> $_POST['title'],
       'description' => $_POST['description']
     ];
-
-    dump($data);
-
   }
+
+  $viewParams['created'] = $created;
 } else {
   $page = 'list';
   $viewParams['resultList'] = "wyświetlamy notatki";
