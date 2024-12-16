@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace App;
-//import debug function dump()
+
 require_once("src/Utils/debug.php");
 require_once("src/Controller.php");
 
@@ -12,16 +12,8 @@ $request = [
   'post' => $_POST
 ];
 
-$controller = new Controller($request);
-$controller->run();
+// $controller = new Controller($request);
+// $controller->run();
 
 
-
-
-
-
-
-
-
-
-
+(new Controller($request))->run();
