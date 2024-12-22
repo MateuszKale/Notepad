@@ -60,11 +60,18 @@ class Controller
     return $data['action'] ?? self::DEFAULT_ACTION;
   }
 
+
+
+
   private function getRequestGet(): array
   {
     return $this->request['get'] ?? [];
   }
 
+
+
+
+  
   private function getRequestPost(): array
   {
     return $this->request['post'] ?? [];
