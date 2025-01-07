@@ -6,7 +6,7 @@ namespace App;
 
 use PDO;
 
-require_once("src/database.php");
+require_once("src/Database.php");
 require_once("src/View.php");
 
 
