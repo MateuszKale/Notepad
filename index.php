@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exception\AppException;
+use App\Exception\ConfigurationException;
 use Throwable;
 
 require_once("src/Utils/Debug.php");
@@ -25,6 +26,9 @@ try {
 
   Controller::initConfiguration($configuration);
   (new Controller($request))->run();
+} catch (ConfigurationException $e){
+  echo "<h1>Wystąpił błąd w aplikacji</h1>";
+  echo "Problem z konfiguracją. Proszę skontaktować sie z administratorem x@x.com";
 } catch(AppException $e) {
   echo "<h1>Wystąpił błąd w aplikacji</h1>";
   echo "<h3> " . $e->getMessage() . '</h3>';
