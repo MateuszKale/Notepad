@@ -27,6 +27,7 @@ try {
   Controller::initConfiguration($configuration);
   (new Controller($request))->run();
 } catch (ConfigurationException $e){
+  //mail('xxx@xxx.com,'Error',$e->getmessage());
   echo "<h1>Wystąpił błąd w aplikacji</h1>";
   echo "Problem z konfiguracją. Proszę skontaktować sie z administratorem x@x.com";
 } catch(AppException $e) {
