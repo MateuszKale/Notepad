@@ -10,7 +10,7 @@ use App\Exception\ConfigurationException;
 use App\Exception\StorageException;
 use PDO;
 use PDOException;
-
+use Throwable;
 
 class Database
 {
@@ -29,6 +29,28 @@ class Database
     }
   }
 
+  public function createNote(array $data):void
+  {
+    try{
+      $title = $this->conn->quote($data['title']);
+      $description = $this->conn->quote($data['description']);
+      $created = $this->conn->quote(date('Y-m-d H:i:s'));
+      
+      $query = "
+        INSERT INTO notes(title, description , created) 
+        VALUES($title, $description, $created)
+      ";
+
+      $this->conn->exec($query);
+
+    } catch(Throwable $e) {
+      throw new StorageException('Nie udało sie utworzyć nowej notatki');
+
+    }
+    
+  }
+
+
   private function createConnection(array $config):void
   {
     $dsn = "mysql:dbname={$config['database']};host={$config['host']}";
@@ -37,13 +59,13 @@ class Database
         $dsn,
         $config['user'],
         $config['password'],
+        [
+          PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
     );
   }
 
-  public function createNote():void
-  {
-    echo "Tworzymy notatke";
-  }
+  
 
 
   private function validateConfig(array $config): void

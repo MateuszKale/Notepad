@@ -55,7 +55,7 @@ class Controller
         if (!empty($data)) {
           $created = true;
 
-          $this->database->createNote('sss');
+          $this->database->createNote($data);
 
           $viewParams = [
             'title' => $data['title'],
