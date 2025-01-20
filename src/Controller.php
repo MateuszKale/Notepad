@@ -44,7 +44,7 @@ class Controller
 
   public function run(): void
   {
-    $viewParams = [];
+
 
     switch ($this->action()) {
       case 'create':
@@ -71,15 +71,14 @@ class Controller
       default:
         $page = 'list';
 
-        $data = $this->getRequestGet();
-
-        $notes = $this->database->getNotes();
-
-        $viewParams['before'] = $data['before'] ?? null;
+        $viewParams = [
+          'notes' => $this->database->getNotes(),
+          'before' => $data['before'] ?? null
+        ];
         break;
     }
 
-    $this->view->render($page, $viewParams);
+    $this->view->render($page, $viewParams ?? []);
   }
 
   private function action(): string
