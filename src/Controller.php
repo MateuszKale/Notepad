@@ -63,6 +63,13 @@ class Controller
 
         break;
       case 'show':
+        $page = 'show';
+
+        $data = $this->getRequestGet();
+        $noteID = (int) $data['id'];
+        
+        $this->database->getNote($noteID);
+
         $viewParams = [
           'title' => 'Moja notatka',
           'description' => 'Opis'
