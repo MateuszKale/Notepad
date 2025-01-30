@@ -7,7 +7,7 @@ namespace App;
 require_once("src/Exceptions/ConfigurationException.php");
 
 use App\Exception\ConfigurationException;
-
+use App\Exception\NotFoundException;
 
 require_once("src/Database.php");
 require_once("src/View.php");
@@ -67,8 +67,14 @@ class Controller
 
         $data = $this->getRequestGet();
         $noteID = (int) $data['id'];
+
+        try{
+          $this->database->getNote($noteID);
+        } catch (NotFoundException $e){
+          exit('s');
+        }
         
-        $this->database->getNote($noteID);
+        
 
         $viewParams = [
           'title' => 'Moja notatka',
