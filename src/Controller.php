@@ -71,7 +71,7 @@ class Controller
         try{
           $this->database->getNote($noteID);
         } catch (NotFoundException $e){
-          exit('s');
+          header('Location: /?error=noteNotFound');
         }
         
         
@@ -86,7 +86,8 @@ class Controller
 
         $viewParams = [
           'notes' => $this->database->getNotes(),
-          'before' => $data['before'] ?? null
+          'before' => $data['before'] ?? null,
+          'error' => $data['error'] ?? null
         ];
         break;
     }

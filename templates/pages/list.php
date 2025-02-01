@@ -2,8 +2,18 @@
 <div>
   <section>
     <div class="message">
+      <?php 
+      if (!empty($params['error'])) { 
+        switch(!empty($params['error'])){
+          case 'noteNotFound':
+            echo "Notatka nie została znaleziona";
+            break;
+          }
+        }  
+      ?>
+    </div>
+    <div class="message">
       <?php if (!empty($params['before'])) { 
-      
           switch(!empty($params['before'])){
             case 'created':
               echo "Notatka została utworzona";
