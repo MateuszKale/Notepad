@@ -59,6 +59,7 @@ class Controller
           ];
           $this->database->createNote($noteData);
           header('Location: /?before=created');
+          exit;
         }
 
         break;
@@ -66,17 +67,24 @@ class Controller
         $page = 'show';
 
         $data = $this->getRequestGet();
-        $noteID = (int) $data['id'];
+        $noteID = (int) ($data['id'] ?? null);
+
+        if (!$noteID){
+          header('Location: /?error=missingNoteId');
+          exit;
+        }
 
         try{
-          $this->database->getNote($noteID);
+          $note = $this->database->getNote($noteID);
         } catch (NotFoundException $e){
           header('Location: /?error=noteNotFound');
+          exit;
         }
         
         
 
         $viewParams = [
+          'note' => $note,
           'title' => 'Moja notatka',
           'description' => 'Opis'
         ];
