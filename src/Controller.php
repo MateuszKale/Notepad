@@ -6,8 +6,10 @@ namespace App;
 
 require_once("src/Exceptions/ConfigurationException.php");
 
+use APP\Request;
 use App\Exception\ConfigurationException;
 use App\Exception\NotFoundException;
+use PgSql\Result;
 
 require_once("src/Database.php");
 require_once("src/View.php");
@@ -19,7 +21,7 @@ class Controller
 
   private static array $configuration = [];
 
-  private array $request;
+  private Request $request;
   private Database $database;
   private View $view;
 
@@ -29,7 +31,7 @@ class Controller
     self::$configuration= $configuration;
   }
 
-  public function __construct(array $request)
+  public function __construct(Request $request)
   {
 
     if (empty((self::$configuration['db']))){
@@ -44,8 +46,6 @@ class Controller
 
   public function run(): void
   {
-
-
     switch ($this->action()) {
       case 'create':
         $page = 'create';
@@ -66,22 +66,23 @@ class Controller
       case 'show':
         $page = 'show';
 
-        $data = $this->getRequestGet();
-        $noteID = (int) ($data['id'] ?? null);
+        // $data = $this->getRequestGet();
+        // $noteId = (int) ($data['id'] ?? null);
 
-        if (!$noteID){
+        $noteId= $this->request->getParam('id');
+        dump($noteId);
+
+        if (!$noteId){
           header('Location: /?error=missingNoteId');
           exit;
         }
 
         try{
-          $note = $this->database->getNote($noteID);
+          $note = $this->database->getNote($noteId);
         } catch (NotFoundException $e){
           header('Location: /?error=noteNotFound');
           exit;
         }
-        
-        
 
         $viewParams = [
           'note' => $note,
@@ -105,10 +106,10 @@ class Controller
 
   private function action(): string
   {
-    $data = $this->getRequestGet();
-    return $data['action'] ?? self::DEFAULT_ACTION;
-  }
+    $action = $this->request->getParam('action');
 
+    return $action ?? self::DEFAULT_ACTION;
+  }
 
 
 
@@ -118,9 +119,6 @@ class Controller
   }
 
 
-
-
-  
   private function getRequestPost(): array
   {
     return $this->request['post'] ?? [];
