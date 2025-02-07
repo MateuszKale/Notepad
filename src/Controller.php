@@ -50,12 +50,10 @@ class Controller
       case 'create':
         $page = 'create';
 
-
-        $data = $this->getRequestPost();
-        if (!empty($data)) {
+        if ($this->request->hasPost()) {
           $noteData =[
-            'title' => $data['title'],
-            'description' => $data['description']
+            'title' => $this->request->postParam('title'),
+            'description' => $this->request->postParam('description')
           ];
           $this->database->createNote($noteData);
           header('Location: /?before=created');
@@ -66,11 +64,8 @@ class Controller
       case 'show':
         $page = 'show';
 
-        // $data = $this->getRequestGet();
-        // $noteId = (int) ($data['id'] ?? null);
 
-        $noteId= $this->request->getParam('id');
-        dump($noteId);
+        $noteId = (int) $this->request->getParam('id');
 
         if (!$noteId){
           header('Location: /?error=missingNoteId');
@@ -95,8 +90,8 @@ class Controller
 
         $viewParams = [
           'notes' => $this->database->getNotes(),
-          'before' => $data['before'] ?? null,
-          'error' => $data['error'] ?? null
+          'before' => $this->request->getParam('before'),
+          'error' => $this->request->getParam('error')
         ];
         break;
     }
@@ -106,21 +101,19 @@ class Controller
 
   private function action(): string
   {
-    $action = $this->request->getParam('action');
-
-    return $action ?? self::DEFAULT_ACTION;
+    return $this->request->getParam('action', self::DEFAULT_ACTION);
   }
 
 
 
-  private function getRequestGet(): array
-  {
-    return $this->request['get'] ?? [];
-  }
+  // private function getRequestGet(): array
+  // {
+  //   return $this->request['get'] ?? [];
+  // }
 
 
-  private function getRequestPost(): array
-  {
-    return $this->request['post'] ?? [];
-  }
+  // private function getRequestPost(): array
+  // {
+  //   return $this->request['post'] ?? [];
+  // }
 }

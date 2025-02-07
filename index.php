@@ -31,13 +31,15 @@ try {
   (new Controller($request))->run();
 } catch (ConfigurationException $e){
   //mail('xxx@xxx.com,'Error',$e->getmessage());
-  echo "<h1>Wystąpił błąd w aplikacji</h1>";
+  echo "<h1>Wystąpił błąd w aplikacji</h1> ";
+  echo $e->getMessage();
   echo "Problem z konfiguracją. Proszę skontaktować sie z administratorem x@x.com";
 } catch(AppException $e) {
   echo "<h1>Wystąpił błąd w aplikacji</h1>";
   echo "<h3> " . $e->getMessage() . '</h3>';
 } catch (Throwable $e){
   echo "<h1>Wystąpił błąd w aplikacji</h1>";
+  dump($e);
 }
 
 
