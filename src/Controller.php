@@ -43,7 +43,7 @@ class Controller
 
   }
 
-  public function create()
+  public function createAction()
   {
 
     if ($this->request->hasPost()) {
@@ -59,7 +59,7 @@ class Controller
     $this->view->render('create');
   }
 
-  public function show()
+  public function showAction()
   {
     $noteId = (int) $this->request->getParam('id');
 
@@ -79,28 +79,23 @@ class Controller
 
     $viewParams = [
       'note' => $note,
-      'title' => 'Moja notatka',
-      'description' => 'Opis'
     ];
 
     $this->view->render(
-      'show', 
-      $viewParams ?? []
+      'show',
+      ['note' => $note]
     );
   }
 
-  public function list()
+  public function listAction()
   {
-
-    $viewParams = [
+    $this->view->render(
+      'list', 
+      [
       'notes' => $this->database->getNotes(),
       'before' => $this->request->getParam('before'),
       'error' => $this->request->getParam('error')
-    ];
-
-    $this->view->render(
-      'list', 
-      $viewParams ?? []
+      ]
     );
   }
 
@@ -108,19 +103,13 @@ class Controller
 
   public function run(): void
   {
-    switch ($this->action()) {
-      case 'create':
-        $this->create();
-        break;
-      case 'show':
-        $this->show();   
-        break;
-      default:
-        $this->list();
-        break;
+    $action = $this->action() . 'Action';
+
+    if (!method_exists($this, $action)){
+      $action = self::DEFAULT_ACTION. 'Action';
     }
 
-    
+    $this->$action();
   }
 
   private function action(): string
