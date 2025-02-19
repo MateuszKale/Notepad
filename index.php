@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App;
 
 require_once("src/Utils/Debug.php");
-require_once("src/Controller.php");
+require_once("src/NoteController.php");
 require_once("src/Request.php");
 require_once("src/Exceptions/AppException.php");
 
 use App\Request;
+use App\Exception\StorageException;
 use App\Exception\AppException;
 use App\Exception\ConfigurationException;
 use Throwable;
@@ -27,8 +28,8 @@ try {
   // $controller = new Controller($request);
   // $controller->run();
 
-  Controller::initConfiguration($configuration);
-  (new Controller($request))->run();
+  AbstractController::initConfiguration($configuration);
+  (new NoteController($request))->run();
 } catch (ConfigurationException $e){
   //mail('xxx@xxx.com,'Error',$e->getmessage());
   echo "<h1>Wystąpił błąd w aplikacji</h1> ";
