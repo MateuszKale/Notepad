@@ -25,6 +25,10 @@
         <?php require_once("templates/pages/$page.php"); ?>
       </div>
     </div>
+
+    <div class="footer">
+      <p>Notatki - projekt w kursie PHP</p>
+    </div>
   </div>
 </body>
 

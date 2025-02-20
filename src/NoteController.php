@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-require_once("src/Exceptions/AbstractController.php");
+require_once("AbstractController.php");
 
 use App\Exception\NotFoundException;
 
